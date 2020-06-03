@@ -1,1 +1,4 @@
 
+[submodule "etcoin"]
+	path = etcoin
+	url = https://github.com/etcoin-project/etcoin
