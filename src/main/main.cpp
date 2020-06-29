@@ -69,6 +69,7 @@
 #include "qt/TailsOS.h"
 #include "qt/KeysFiles.h"
 #include "qt/ETcoinSettings.h"
+#include "qt/NetworkAccessBlockingFactory.h"
 
 // IOS exclusions
 #ifndef Q_OS_IOS
@@ -94,11 +95,8 @@
   Q_IMPORT_PLUGIN(QXcbIntegrationPlugin);
 #endif
 Q_IMPORT_PLUGIN(QSvgIconPlugin)
-Q_IMPORT_PLUGIN(QGifPlugin)
 Q_IMPORT_PLUGIN(QICNSPlugin)
-Q_IMPORT_PLUGIN(QICOPlugin)
 Q_IMPORT_PLUGIN(QJpegPlugin)
-Q_IMPORT_PLUGIN(QMngPlugin)
 Q_IMPORT_PLUGIN(QSvgPlugin)
 Q_IMPORT_PLUGIN(QTgaPlugin)
 Q_IMPORT_PLUGIN(QTiffPlugin)
@@ -130,7 +128,9 @@ Q_IMPORT_PLUGIN(QtQuick2PrivateWidgetsPlugin)
 Q_IMPORT_PLUGIN(QtQuickControls2Plugin)
 Q_IMPORT_PLUGIN(QtQuickTemplates2Plugin)
 Q_IMPORT_PLUGIN(QmlXmlListModelPlugin)
+#ifdef WITH_SCANNER
 Q_IMPORT_PLUGIN(QMultimediaDeclarativeModule)
+#endif
 
 #endif
 
@@ -417,7 +417,8 @@ Verify update binary using 'shasum'-compatible (SHA256 algo) output signed by tw
 #endif
 
     QQmlApplicationEngine engine;
-
+    
+    engine.setNetworkAccessManagerFactory(new NetworkAccessBlockingFactory);
     OSCursor cursor;
     engine.rootContext()->setContextProperty("globalCursor", &cursor);
     OSHelper osHelper;
