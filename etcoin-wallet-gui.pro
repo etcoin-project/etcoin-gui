@@ -352,7 +352,7 @@ linux {
       # On some distro's we need to add dynload
       LIBS+= -ldl
     }
-    # LIBS+=-L/usr/local/boost_1_70_0/lib
+    LIBS+=-L/usr/local/boost_1_70_0/lib
     LIBS+= \
         -lboost_serialization \
         -lboost_thread \
