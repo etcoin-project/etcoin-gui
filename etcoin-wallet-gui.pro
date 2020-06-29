@@ -420,6 +420,13 @@ macx {
     } else {
         INCLUDEPATH += /usr/local/include
     }
+    
+    SODIUM_DIR = $$system(brew --prefix libsodium, lines, EXIT_CODE)
+    equals(EXIT_CODE, 0) {
+        INCLUDEPATH += $$SODIUM_DIR/include
+    } else {
+        INCLUDEPATH += /usr/local/include
+    }
 
     QT += macextras
     OBJECTIVE_SOURCES += src/qt/macoshelper.mm
