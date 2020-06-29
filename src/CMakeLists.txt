@@ -126,19 +126,17 @@ target_compile_definitions(etcoin-wallet-gui
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
 
-if(X11_FOUND)
-    target_link_libraries(etcoin-wallet-gui ${X11_LIBRARIES} pthread dl Xt xcb X11)
-endif()
-
-if(DEVICE_TREZOR_READY)
-    target_link_libraries(etcoin-wallet-gui ${TREZOR_DEP_LIBS})
+if(INSTALL_VENDORED_LIBUNBOUND)
+  set(UNBOUND_LIBRARY ${CMAKE_BINARY_DIR}/monero/external/unbound/libunbound.a)
+else()
+  set(UNBOUND_LIBRARY unbound)
 endif()
 
 target_link_libraries(etcoin-wallet-gui
     ${CMAKE_BINARY_DIR}/lib/libwallet_merged.a
     ${LMDB_LIBRARY}
     ${CMAKE_BINARY_DIR}/etcoin/contrib/epee/src/libepee.a
-    ${CMAKE_BINARY_DIR}/etcoin/external/unbound/libunbound.a
+    ${UNBOUND_LIBRARY}
     ${SODIUM_LIBRARY}
     ${CMAKE_BINARY_DIR}/etcoin/external/easylogging++/libeasylogging.a
     ${CMAKE_BINARY_DIR}/etcoin/src/blockchain_db/libblockchain_db.a
@@ -154,6 +152,10 @@ target_link_libraries(etcoin-wallet-gui
     ${ICU_LIBRARIES}
     openpgp
 )
+
+if(X11_FOUND)
+    target_link_libraries(monero-wallet-gui ${X11_LIBRARIES})
+endif()
 
 if(WITH_SCANNER)
     target_link_libraries(etcoin-wallet-gui
