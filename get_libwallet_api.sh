@@ -17,7 +17,7 @@ if [ ! -d $ETCOIN_DIR/src ]; then
 fi
 git submodule update --remote
 git -C $ETCOIN_DIR fetch
-git -C $ETCOIN_DIR checkout v0.16.0.0
+git -C $ETCOIN_DIR checkout v0.16.0.5
 
 # get etcoin core tag
 pushd $ETCOIN_DIR
