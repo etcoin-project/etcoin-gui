@@ -164,7 +164,8 @@ std::tuple<std::string, s_expression, size_t> public_key_rsa::decode(const epee:
   const mpi public_key_e = serialized.read_mpi();
 
   s_expression expression("(public-key (rsa (n %m) (e %m)))", public_key_n.get(), public_key_e.get());
-
+  std::tuple<std::string, s_expression, size_t> result;
+  result = std::make_tuple（std::move(user_id), std::move(expression), gcry_mpi_get_nbits(public_key_n.get())）;
   return {std::move(user_id), std::move(expression), gcry_mpi_get_nbits(public_key_n.get())};
 }
 
