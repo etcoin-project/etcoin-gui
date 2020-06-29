@@ -111,9 +111,11 @@ QPair<QString, QString> Updater::verifySignaturesAndHashSum(
 
 QByteArray Updater::getHash(const void *data, size_t size) const
 {
-    QByteArray hash(sizeof(crypto::hash), 0);
-    tools::sha256sum(static_cast<const uint8_t *>(data), size, *reinterpret_cast<crypto::hash *>(hash.data()));
-    return hash;
+    openpgp::hash hasher(openpgp::hash::algorithm::sha256);
+    hasher << epee::span<const uint8_t>(reinterpret_cast<const uint8_t *>(data), size);
+    const std::vector<uint8_t> hash = hasher.finish();
+    return QByteArray(reinterpret_cast<const char *>(&hash[0]), hash.size());
+
 }
 
 QByteArray Updater::parseShasumOutput(const QString &message, const QString &filename) const
