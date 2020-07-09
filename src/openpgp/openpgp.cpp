@@ -218,7 +218,7 @@ signature_rsa signature_rsa::from_buffer(const epee::span<const uint8_t> input)
   const auto signature_type = static_cast<type>(buffer.read_big_endian<uint8_t>());
 
   const auto algorithm = buffer.read_big_endian<uint8_t>();
-  if (algorithm != algorithm::rsa)
+  if (algorithm != openpgp::algorithm::rsa)
   {
     throw std::runtime_error("unsupported signature algorithm");
   }

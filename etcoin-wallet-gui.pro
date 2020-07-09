@@ -44,6 +44,8 @@ INCLUDEPATH +=  $$WALLET_ROOT/include \
                 $$PWD/src/QR-Code-generator \
                 $$PWD/src \
                 $$WALLET_ROOT/src \
+                /usr/local/boost_1_70_0 \
+                /usr/local/openssl-1.1.1g/include \
                 $$WALLET_ROOT/external/easylogging++ \
                 $$WALLET_ROOT/contrib/epee/include
 
@@ -352,7 +354,7 @@ linux {
       # On some distro's we need to add dynload
       LIBS+= -ldl
     }
-    LIBS+=-L/usr/local/boost_1_70_0/lib
+    LIBS+=-L/usr/local/boost_1_70_0/stage/lib
     LIBS+= \
         -lboost_serialization \
         -lboost_thread \
